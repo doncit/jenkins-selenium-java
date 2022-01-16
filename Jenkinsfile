@@ -1,6 +1,8 @@
 pipeline {
     agent {
-        dockerfile true
+        dockerfile {
+            args  '--net="jenkins"'
+        }
     }
     stages {
         stage('Test') {

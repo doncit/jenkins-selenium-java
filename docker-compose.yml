@@ -21,6 +21,7 @@ services:
       - jenkins
     links:
       - "dind:docker"
+      - "selenium-hub:selenium-hub"
     environment:
       - DOCKER_HOST=tcp://docker:2376
       - DOCKER_CERT_PATH=/certs/client
