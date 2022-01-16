@@ -8,14 +8,15 @@
 ## Run it
 
 1. Download Jenkins data from [here](https://drive.google.com/file/d/19dv1ikDC9csGwltyceBUPSqjfMnXqsiw/view?usp=sharing).
-2. Extract the downloaded Jenkins data file to `./jenkins-data` folder.
+2. Extract the downloaded archive file to the repository root folder.
 3. Run `docker-compose up`.
-4. Create a `credentials.csv` file in the root repository folder with these contents:
+4. You will need to turn off two-factor authentication in your Amazon account temporarily. Unfortunately, the tests do not support 2FA at the moment :)
+5. Create a `credentials.csv` file in the root repository folder with these contents:
    ```csv
    username,password
    your@amazon.email,your_amazon_password
    ```
-5. Upload your `credentials.csv` file to Jenkins:
+6. Upload your `credentials.csv` file to Jenkins:
    1. Open `http://localhost:8080/` in your browser.
    2. Login to Jenkins with username `admin` and password `admin`.
    3. Click "Manage Jenkins".
@@ -32,9 +33,13 @@
    12. Click "OK".
       
       ![credentials-final.png](images/credentials-final.png)
-6. Go back to the main Jenkins page.
-7. Run the "Tests" build.
+7. Go back to the main Jenkins page.
+8. Run the "Tests" build.
 
 ## Observe it
 
 If you would like to watch test execution, you can go to `http://localhost:7900/` with password `secret`.
+
+## Tear it down
+
+Run `docker-compose down` to clean everything up.
