@@ -7,7 +7,10 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh 'mvn test'
+                withCredentials([file(credentialsId: 'credentials', variable: 'CREDENTIALS')]) {
+                    sh 'cat $CREDENTIALS > credentials.csv'
+                    sh 'mvn test'
+                }
             }
         }
     }

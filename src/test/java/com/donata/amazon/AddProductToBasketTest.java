@@ -1,5 +1,6 @@
 package com.donata.amazon;
 
+import com.donata.credentials.Credentials;
 import com.donata.driver.Driver;
 import com.donata.pages.*;
 import com.donata.utils.fileutils.TestData;
@@ -15,6 +16,7 @@ import java.time.Duration;
 public class AddProductToBasketTest {
 
     private TestData testData;
+    private Credentials credentials;
     private WebDriver driver;
     private AmazonMainPage amazonMainPage;
     private AmazonLoginPage amazonLoginPage;
@@ -25,6 +27,7 @@ public class AddProductToBasketTest {
     @BeforeClass
     public void setup() {
         testData = TestData.get();
+        credentials = Credentials.get();
 
         driver = Driver.get(Driver.Type.REMOTE);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -41,9 +44,9 @@ public class AddProductToBasketTest {
     @Test
     public void login() {
         amazonMainPage.clickAccountListNav();
-        amazonLoginPage.enterEmailOrMPhone("xcverasdfasdfkfkf");
+        amazonLoginPage.enterEmailOrMPhone(credentials.getUsername());
         amazonLoginPage.clickContinue();
-        amazonLoginPage.enterPassword("sdfaishdfioasdfhoaisd");
+        amazonLoginPage.enterPassword(credentials.getPassword());
         amazonLoginPage.clickSignIn();
         amazonMainPage.verifyAmazonMainPage();
     }
