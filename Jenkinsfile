@@ -1,11 +1,11 @@
 pipeline {
     agent {
-        docker { image 'ubuntu' }
+        dockerfile true
     }
     stages {
         stage('Test') {
             steps {
-                sh 'echo LOL!'
+                sh 'mvn test'
             }
         }
     }

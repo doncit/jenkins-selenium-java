@@ -1,0 +1,50 @@
+version: "3.3"
+
+services:
+
+  dind:
+    image: docker:dind
+    privileged: true
+    networks:
+      - jenkins
+    hostname: docker
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    volumes:
+      - docker-certs:/certs/client
+      - jenkins-data:/var/jenkins_home
+
+  jenkins:
+    build:
+      context: jenkins
+    networks:
+      - jenkins
+    links:
+      - "dind:docker"
+    environment:
+      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - docker-certs:/certs/client:ro
+      - jenkins-data:/var/jenkins_home
+    depends_on:
+      - dind
+
+  selenium-hub:
+    image: selenium/standalone-chrome:4.1.1-20211217
+    ports:
+      - "4444:4444"
+    shm_size: 2g
+    networks:
+      - jenkins
+
+networks:
+  jenkins:
+
+volumes:
+  docker-certs:
+  jenkins-data:
