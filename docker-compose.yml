@@ -12,7 +12,7 @@ services:
       - DOCKER_TLS_CERTDIR=/certs
     volumes:
       - docker-certs:/certs/client
-      - jenkins-data:/var/jenkins_home
+      - ./jenkins-data:/var/jenkins_home
 
   jenkins:
     build:
@@ -31,7 +31,7 @@ services:
       - "50000:50000"
     volumes:
       - docker-certs:/certs/client:ro
-      - jenkins-data:/var/jenkins_home
+      - ./jenkins-data:/var/jenkins_home
     depends_on:
       - dind
 
@@ -49,4 +49,3 @@ networks:
 
 volumes:
   docker-certs:
-  jenkins-data:
