@@ -19,7 +19,7 @@ public class Driver {
     public static WebDriver get(Type type) {
         if (type == Type.REMOTE) {
             try {
-                return new RemoteWebDriver(new URL("http://localhost:4444"), new ChromeOptions());
+                return new RemoteWebDriver(new URL("http://selenium-hub:4444"), new ChromeOptions());
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
