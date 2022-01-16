@@ -62,7 +62,7 @@ public class AddProductToBasketTest {
     }
 
     @Test(dependsOnMethods = "cleanCart")
-    public void test() {
+    public void addProducts() {
         amazonMainPage.enterSearchText(testData.getProduct());
         amazonMainPage.clickSubmitSearchBtn();
         amazonMainPage.selectSortValue("Avg. Customer Review");
