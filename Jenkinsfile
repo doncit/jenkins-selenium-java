@@ -1,7 +1,7 @@
 pipeline {
     agent {
         dockerfile {
-            args  '--net="jenkinsseleniumjava_jenkins"'
+            args  '--network=host'
         }
     }
     stages {
