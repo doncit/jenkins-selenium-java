@@ -1,10 +1,9 @@
 package com.donata.amazon;
 
+import com.donata.driver.Driver;
 import com.donata.pages.*;
 import com.donata.utils.fileutils.TestData;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -27,8 +26,7 @@ public class AddProductToBasketTest {
     public void setup() {
         testData = TestData.get();
 
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        driver = Driver.get(Driver.Type.REMOTE);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         amazonMainPage = new AmazonMainPage(driver);
         amazonLoginPage = new AmazonLoginPage(driver);
@@ -40,17 +38,17 @@ public class AddProductToBasketTest {
         amazonMainPage.verifyAmazonMainPage();
     }
 
-    @Test(priority = 1)
+    @Test
     public void login() {
         amazonMainPage.clickAccountListNav();
-        amazonLoginPage.enterEmailOrMPhone("asdfasdfasvxcvxcvx");
+        amazonLoginPage.enterEmailOrMPhone("xcverasdfasdfkfkf");
         amazonLoginPage.clickContinue();
-        amazonLoginPage.enterPassword("asdfasdfasdfasdfsad");
+        amazonLoginPage.enterPassword("sdfaishdfioasdfhoaisd");
         amazonLoginPage.clickSignIn();
         amazonMainPage.verifyAmazonMainPage();
     }
 
-    @Test(priority = 2)
+    @Test(dependsOnMethods = "login")
     public void cleanCart() {
         Integer count = commonPageActions.getItemsInCartCount();
         if (count > 0) {
@@ -60,7 +58,7 @@ public class AddProductToBasketTest {
         }
     }
 
-    @Test(priority = 3)
+    @Test(dependsOnMethods = "cleanCart")
     public void test() {
         amazonMainPage.enterSearchText(testData.getProduct());
         amazonMainPage.clickSubmitSearchBtn();
@@ -91,7 +89,7 @@ public class AddProductToBasketTest {
     @AfterClass
     public void teardown() {
         if (driver != null) {
-            driver.close();
+            driver.quit();
         }
     }
 }

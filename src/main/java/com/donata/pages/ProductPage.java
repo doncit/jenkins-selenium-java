@@ -32,7 +32,6 @@ public class ProductPage extends AbstractPage {
 
     public void addProductToCart() {
         waitForElementVisible(10, addToCartButton);
-        waitForElementClickable(10, addToCartButton);
         clickBtn(addToCartButton);
     }
 

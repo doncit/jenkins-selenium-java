@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 
 public class AmazonMainPage extends AbstractPage {
 
-    private final By mainPage = By.id("a-page");
     private final By accountAndListsNav = By.id("nav-link-accountList-nav-line-1");
     private final By searchTextBox = By.id("twotabsearchtextbox");
     private final By submitSearchBtn = By.id("nav-search-submit-button");
@@ -21,7 +20,7 @@ public class AmazonMainPage extends AbstractPage {
     }
 
     public void verifyAmazonMainPage() {
-        waitForElementVisible(10, mainPage);
+        waitForElementVisible(10, searchTextBox);
     }
 
     public void clickAccountListNav() {
