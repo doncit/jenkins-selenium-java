@@ -8,7 +8,7 @@ import java.util.function.BooleanSupplier;
 
 public class Wait {
 
-    public static void Until(Integer seconds, BooleanSupplier condition) {
+    public static void until(Integer seconds, BooleanSupplier condition) {
         Instant deadline = Instant.now().plusSeconds(seconds);
 
         do {

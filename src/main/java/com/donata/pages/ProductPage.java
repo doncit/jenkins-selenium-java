@@ -31,7 +31,9 @@ public class ProductPage extends AbstractPage {
     }
 
     public void addProductToCart() {
+        Wait.until(10, () -> getListOfWebElements(addToCartButton).size() > 0);
         waitForElementVisible(10, addToCartButton);
+        waitForElementClickable(10,addToCartButton);
         clickBtn(addToCartButton);
     }
 
@@ -59,7 +61,7 @@ public class ProductPage extends AbstractPage {
         }
 
         if (products.size() > 1) {
-            Wait.Until(10, () -> getListOfWebElements(productInCart).size() == (initialSize - 1));
+            Wait.until(10, () -> getListOfWebElements(productInCart).size() == (initialSize - 1));
             deleteAllProductsInCart();
         }
     }
@@ -73,9 +75,15 @@ public class ProductPage extends AbstractPage {
     }
 
     private Boolean getProductSelectedColorIndicator(Integer index) {
-        String val = driver.findElement(By.cssSelector(getProductColorSelector(index))).
-                findElement(By.cssSelector("span[aria-checked]")).
-                getAttribute("aria-checked");
-        return Boolean.parseBoolean(val);
+
+        WebElement element = driver.findElement(By.cssSelector(getProductColorSelector(index)));
+        String attribute = element.getAttribute("aria-checked");
+        if (!Boolean.parseBoolean(attribute)) {
+
+            attribute = element.
+                    findElement(By.cssSelector("span[aria-checked]")).
+                    getAttribute("aria-checked");
+        }
+        return Boolean.parseBoolean(attribute);
     }
 }

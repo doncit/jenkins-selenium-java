@@ -1,9 +1,8 @@
 package com.donata.pages;
 
+import com.donata.utils.wait.Wait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-import static org.testng.Assert.assertEquals;
 
 public class CommonPageActions extends AbstractPage {
 
@@ -14,7 +13,7 @@ public class CommonPageActions extends AbstractPage {
     }
 
     public void verifyCartItemsCount(Integer expectedCount) {
-        assertEquals(getItemsInCartCount(), expectedCount);
+        Wait.until(10, () -> getItemsInCartCount().equals(expectedCount));
     }
 
     public Integer getItemsInCartCount() {
