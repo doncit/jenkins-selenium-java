@@ -29,7 +29,7 @@ public class AddProductToBasketTest {
         testData = TestData.get();
         credentials = Credentials.get();
 
-        driver = Driver.get(Driver.Type.REMOTE);
+        driver = Driver.get(Driver.Type.LOCAL, Driver.Browser.CHROME);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         amazonMainPage = new AmazonMainPage(driver);
         amazonLoginPage = new AmazonLoginPage(driver);
